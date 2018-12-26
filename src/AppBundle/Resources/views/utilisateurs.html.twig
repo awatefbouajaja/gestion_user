@@ -41,7 +41,15 @@
 <body class="page-container-bg-solid">
 
 <div id="wrapper">
-    <script>/*swal("Good job!", "You clicked the button!", "success");*/</script>
+    {% if app.session.flashbag is not empty %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <script>swal("Warning!", "{{ flashMessage }}", "error");</script>
+    {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+        <script>swal("Good job!", "{{ flashMessage }}", "success");</script>
+        {% endfor %}
+    {% endif %}
+
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -184,6 +192,7 @@
                 </div>
 
                 <!--************************************* -->
+
                 <div class="col-md-6 ">
                     <!-- BEGIN SAMPLE FORM PORTLET-->
                     <div class="portlet light ">
@@ -282,8 +291,8 @@
                                         <td>@fat</td>
                                         <td>{% if user.enabled==1 %} <a href="" class="btn btn-success disabled">Active</a> {% else %} <a href="" class="btn btn-danger">Disctive</a>{% endif %}</td>
                                         <td>
-                                            <a href="" class="btn btn-primary"><i class="fa fa-user-secret"></i> </a>
-                                            <a href="" class="btn btn-success" ><i class="fa fa-edit"></i> </a>
+                                            <a href="#" class="btn btn-primary"><i class="fa fa-user-secret"></i> </a>
+                                            <a href="#" class="btn btn-success" ><i class="fa fa-edit"></i> </a>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter{{ user.id }}">
                                                 <i class="fa fa-remove"></i>
                                             </button>

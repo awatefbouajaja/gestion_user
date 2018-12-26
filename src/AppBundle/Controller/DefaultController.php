@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\User;
 use FOS\UserBundle\Doctrine\UserManager;
 
+
 class DefaultController extends Controller
 {
     /**
@@ -28,24 +29,15 @@ class DefaultController extends Controller
     /**
      * @Route("/utilisateurs", name="gestion_des_utilisateurs")
      */
-    public function utilisateursAction()
+    public function utilisateursAction(Request $request)
     {
 
-        /*$nuser=new fos_user.user_manager();
-        $form=$this->createForm(RegistrationFormType::class,$nuser,array(
-            'action'=>$this->generateUrl('add_user')
-        ));*/
 
-
-        /*$user=$this->getUser();
-        if($user){*/
             $repository = $this->get('fos_user.user_manager');
             //$repository=$this->getDoctrine()->getRepository('User');
-            $users=$repository->findUsers();
-            return $this->render('@App/utilisateurs.html.twig',array('utilisateurs'=>$users));
-        /*}else {
-            return $this->render('@FOSUser/Security/login.html.twig');
-        }*/
+            $utilisateurs=$repository->findUsers();
+            return $this->render('@App/utilisateurs.html.twig',array('utilisateurs'=>$utilisateurs ));
+
 
     }
 
@@ -55,19 +47,22 @@ class DefaultController extends Controller
     public function deleteAction( Request $request, $id = null )
     {
         $session=$request->getSession();
-        if(!$id){
-          $session->getFlashBag()->add('error',"l'utilisateur n'existe pas");
+        $repository = $this->get('fos_user.user_manager');
+        if(!$repository->findUserBy(array('id'=>$id))){
+          $session->getFlashBag()->add('error',"user not find");
         }else {
-            $repository = $this->get('fos_user.user_manager');
+
             $user = $repository->findUserBy(array('id'=>$id));
-            dump($user);
-            die('test');
-            $repository->remove($user);
-            $repository->flush();
-            $session->getFlashBag()->add('error',"le personne est supprimé ");
+            /*dump($user);
+            die('test');*/
+            $repository->deleteUser($user);
+            //$repository->flush();
+            $session->getFlashBag()->add('success',"user deleted ");
 
         }
         return $this->forward('AppBundle:Default:utilisateurs');
 
     }
+
+
 }
