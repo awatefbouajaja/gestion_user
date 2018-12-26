@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use AppBundle\Entity\FosUser;
+use AppBundle\Entity\User;
 
 class DefaultController extends Controller
 {
@@ -28,9 +28,10 @@ class DefaultController extends Controller
 
         $user=$this->getUser()->getId();
         if($user){
-            $repository=$this->getDoctrine()->getRepository('FosUser');
-            $users=$repository->findAll();
+            $repository = $this->get('fos_user.user_manager');
+            //$repository=$this->getDoctrine()->getRepository('User');
+            $users=$repository->findUsers();
         }
-        return $this->render('@App/utilisateurs',array('utilisateurs'=>$users));
+        return $this->render('@App/utilisateurs.html.twig',array('utilisateurs'=>$users));
     }
 }

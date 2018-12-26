@@ -266,23 +266,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {% for user in utilisateurs %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>@fat</td>
+                                        <td>{% if user.enabled==1 %} <a href="" class="btn btn-success disabled">Active</a> {% else %} <a href="" class="btn btn-danger">Disctive</a>{% endif %}</td>
+                                        <td>
+                                            <a href="" class="btn btn-primary"><i class="fa fa-user-secret"></i> </a>
+                                            <a href="" class="btn btn-success" ><i class="fa fa-edit"></i> </a>
+                                            <a href="" class="btn btn-danger"><i class="fa fa-remove"></i> </a>
 
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
-                                        <td>@fat</td>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
