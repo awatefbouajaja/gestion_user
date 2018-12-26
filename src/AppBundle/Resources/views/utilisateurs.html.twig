@@ -289,9 +289,9 @@
                                         <td>{{ user.username }}</td>
                                         <td>{{ user.email }}</td>
                                         <td>@fat</td>
-                                        <td>{% if user.enabled==1 %} <a href="" class="btn btn-success disabled">Active</a> {% else %} <a href="" class="btn btn-danger">Disctive</a>{% endif %}</td>
+                                        <td>{% if user.enabled==1 %} <a href="" class="btn btn-success disabled">Active</a> {% else %} <a href="" class="btn btn-danger disabled">Desactive</a>{% endif %}</td>
                                         <td>
-                                            <a href="#" class="btn btn-primary"><i class="fa fa-user-secret"></i> </a>
+                                            <a href="{{ path('active_desactive',{'id':user.id,'enabled':user.enabled}) }}" class="btn btn-primary"><i class="fa fa-user-secret"></i> </a>
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ModalEdit{{ user.id }}" >
                                                 <i class="fa fa-edit"></i> </button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ user.id }}">

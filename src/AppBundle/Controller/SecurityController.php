@@ -55,4 +55,30 @@ class SecurityController extends Controller
         $session->getFlashBag()->add('success', "user updated");
         return $this->forward('AppBundle:Default:utilisateurs');
     }
+
+    /**
+     * @Route("/activeDesactive/{id}/{enabled}", name="active_desactive")
+     */
+    public function activeDesactiveAction($id,$enabled=null,Request $request)
+    {
+        $session=$request->getSession();
+        $repository = $this->get('fos_user.user_manager');
+
+        $user=$repository->findUserBy(array('id'=>$id));
+        /*$p=$user->Enabled;
+        dump($p);
+        die('test');*/
+        if(!$enabled)
+        {
+            $user->setEnabled(true);
+            $session->getFlashBag()->add('success', "user Active");
+        }else{
+            $user->setEnabled(false);
+            $session->getFlashBag()->add('success', "user Desactive");
+        }
+        $this->get('fos_user.user_manager')->updateUser($user, false);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->forward('AppBundle:Default:utilisateurs');
+
+    }
 }
