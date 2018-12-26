@@ -1,0 +1,79 @@
+{#{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+
+    <label for="username">{{ 'security.login.username'|trans }}</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+
+    <label for="password">{{ 'security.login.password'|trans }}</label>
+    <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+</form>#}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+<form class="login-form" action="{{ path("fos_user_security_check") }}" method="post">
+    <h3 class="form-title">Login to your account</h3>
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+
+    <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9" for="username">{{ 'security.login.username'|trans }}</label>
+        <input class="form-control placeholder-no-fix"  placeholder="Username" type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label visible-ie8 visible-ie9" for="password">{{ 'security.login.password'|trans }}</label>
+        <input class="form-control placeholder-no-fix"  type="password" id="password" name="_password" placeholder="Password" required="required" autocomplete="current-password" />
+    </div>
+
+    <div class="form-actions">
+        <input type="checkbox" id="remember_me" name="_remember_me" value="o" />
+        <label class="rememberme mt-checkbox mt-checkbox-outline" for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn green pull-right" />
+    </div>
+    <div class="login-options">
+        <h4>Or login with</h4>
+        <ul class="social-icons">
+            <li>
+                <a class="facebook" data-original-title="facebook" href="javascript:;"> </a>
+            </li>
+            <li>
+                <a class="twitter" data-original-title="Twitter" href="javascript:;"> </a>
+            </li>
+            <li>
+                <a class="googleplus" data-original-title="Goole Plus" href="javascript:;"> </a>
+            </li>
+            <li>
+                <a class="linkedin" data-original-title="Linkedin" href="javascript:;"> </a>
+            </li>
+        </ul>
+    </div>
+    <div class="forget-password">
+        <h4>Forgot your password ?</h4>
+        <p> no worries, click
+            <a href="{{ path('fos_user_resetting_request') }}" > here </a> to reset your password. </p>
+    </div>
+    <div class="create-account">
+        <p> Don't have an account yet ?&nbsp;
+            <a href="{{ path('fos_user_registration_register') }}"  class="btn green"> Create an account </a>
+        </p>
+    </div>
+</form>
