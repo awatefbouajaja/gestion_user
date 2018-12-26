@@ -37,4 +37,22 @@ class SecurityController extends Controller
         }
         return $this->forward('AppBundle:Default:utilisateurs');
     }
+
+    /**
+     * @Route("/updateUser/{id}",name="update_user")
+     */
+    public function updateAction(Request $request,$id)
+    {
+        $session=$request->getSession();
+        $repository = $this->get('fos_user.user_manager');
+
+        $user=$repository->findUserBy(array('id'=>$id));
+        $user->setUsername($request->request->get('username'));
+        $user->setEmail($request->request->get('email'));
+
+        $this->get('fos_user.user_manager')->updateUser($user, false);
+        $this->getDoctrine()->getManager()->flush();
+        $session->getFlashBag()->add('success', "user updated");
+        return $this->forward('AppBundle:Default:utilisateurs');
+    }
 }

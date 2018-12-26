@@ -8,7 +8,7 @@
         <input class="form-control placeholder-no-fix" placeholder="Email" type="text" id="username" name="username" required="required" />
     </div>
     <div class="form-actions">
-        <a href="" type="button" id="back-btn" class="btn red btn-outline">Back </a>
+        <a href="{{ path('fos_user_security_login') }}" type="button" id="back-btn" class="btn red btn-outline">Back </a>
         <input type="submit" value="{{ 'resetting.request.submit'|trans }}" class="btn green pull-right" />
     </div>
 </form>
